@@ -1,50 +1,82 @@
-# Building Palindromes
-# JD Linares
-# 06/28/2022
+'''
+Google Kick Start - Palandromes
+JD Linares
+2022 07 06 
 
+Note: 
+ord()
+'''
 
-# Number of cases
-num_cases = int(input())
-
-
-# Read in and solve each case
-for i in range(num_cases):
-		index_answers = {}
-
-		blocks_questions = [int(w) for w in input().split()]
-		blocks = blocks_questions[0]
-		questions = blocks_questions[1]
-		q_string = input()
-
-		solution = 0
-		for j in range(questions):
-				test_case = input()
-
-				if test_case in index_answers:
-						solution += index_answers[test_case]
-				else:
-						s_indicies = [int(i)-1 for i in test_case.split()]
-						test_is_pal = sorted(q_string[s_indicies[0]:s_indicies[1]+1])
-						
-						palandrome_true = 1
-						for z in range(len(test_is_pal)-2):
-								if test_is_pal[z] != test_is_pal[z+1]:
+def is_pal(array_letters):
+		#print(array_letters)
+		unmatched = 0
+		for value_i in array_letters:
+				if value_i % 2 == 1:
+						unmatched += 1
+		return unmatched <= 1
 
 
 
+for case_i in range(int(input())):
+		blocks_questions = [int(digit) for digit in input().split()]
 
+		block_n = blocks_questions[0]
+		question_n = blocks_questions[1]
 
+		letters = input()
+		#print(f"input letters: {letters}")
 
-						if unmatched == 1 or ( unmatched == 0 and len(test_is_pal)>0):
-							index_answers[test_case]=1
-							solution += 1
+		pal_arr = [0]*26
+
+		#print(pal_arr)
+		for char in letters:
+				pal_arr[ord(char)-65] += 1
+		#print(pal_arr)
+		#print()
+
+		question_set = {}
+		for question_i in range(question_n):
+				digits = [int(digit)-1 for digit in input().split()]
+				#print(digits)
+				if digits[0] in question_set:
+						if digits[1] in question_set[digits[0]]:
+								question_set[digits[0]][digits[1]] += 1
 						else:
-								index_answers[test_case]=0
+								question_set[digits[0]][digits[1]] = 1
+				else:
+						question_set[digits[0]] = {digits[1]:1}
+		#print(question_set)
+		
 
-		print( f"Case #{i+1}: " + str(solution) )
+		result = 0
+		index_left = 0
+		index_right = len(letters)
 
+		for digit_a in sorted(question_set):
+				temp_pal_arr = pal_arr.copy()
+				#print(temp_pal_arr)
+				for char_a in letters[index_left:digit_a]:
+						#print(char_a,end='')
+						temp_pal_arr[ord(char_a)-65] -= 1
+				#print()
+				for digit_b in sorted(question_set[digit_a],reverse=True):
+						for char_b in letters[digit_b+1:index_right]:
+								#print(char_b,end='')
+								temp_pal_arr[ord(char_b)-65] -= 1
+						#print(temp_pal_arr)
+						#print(f"{digit_a} {digit_b}")
+						#print(f"first: {letters[index_left:digit_a]}")
+						#print(f"second: {letters[digit_a:digit_b+1]}")
+						#print(f"thrid: {letters[digit_b+1:index_right]}")
+						#print(f"Check is pal: {letters[digit_a:digit_b+1]}")
+						result += question_set[digit_a][digit_b]*is_pal(temp_pal_arr)
+						#print()
+						#print(letters[digit_a:digit_b+1])
+						#print(f"{index_left} {digit_a} {digit_b} {index_right} : {result}")
+				index_right = len(letters)
 
-
+		print(f"Case #{case_i+1}: {result}")
+		#print()
 
 
 

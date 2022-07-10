@@ -1,0 +1,11 @@
+'''
+Google Kick Start - Palandromes
+JD Linares
+2022 07 06 
+'''
+
+
+
+
+
+

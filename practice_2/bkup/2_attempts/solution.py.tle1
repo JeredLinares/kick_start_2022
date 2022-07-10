@@ -1,0 +1,58 @@
+# Building Palindromes
+# JD Linares
+# 06/28/2022
+
+
+# Solving function
+def solver(q_string,q_set):
+		solution = 0
+
+		for start_end in q_set:
+			s_indicies = [int(i)-1 for i in start_end.split()]
+			solution += isPal(q_string[s_indicies[0]:s_indicies[1]+1])
+
+		return str(solution)
+
+def isPal(str_test):
+		#		print(str_test)
+		dict_char_count = {}
+		length_odd = len(str_test)%2
+
+		for i in str_test:
+				if i not in dict_char_count:
+						dict_char_count[i]=1
+				else:
+						dict_char_count[i] += 1
+
+		unmatched = 0
+		for key,value in dict_char_count.items():
+				unmatched += value % 2
+
+		if unmatched > 1:
+				return 0	#  not a palendrome
+		if unmatched == 1 and length_odd == 1:
+				return 1	# palendrome
+		return 1			# no unmatched
+
+
+
+# Number of cases
+num_cases = int(input())
+
+
+# Read in and solve each case
+for i in range(num_cases):
+		blocks_questions = [int(i) for i in input().split()]
+		blocks = blocks_questions[0]
+		questions = blocks_questions[1]
+		q_string = input()
+		q_set = []
+		for j in range(questions):
+				q_set.append(input())
+
+		print( f"Case #{i+1}: " + solver(q_string,q_set) )
+
+
+
+
+

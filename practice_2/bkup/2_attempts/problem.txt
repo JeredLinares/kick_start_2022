@@ -1,0 +1,27 @@
+
+
+N blocks in a row
+A-Z
+1-N (left to right)
+
+Palindrome: ANNA, RACECAR, AAA, X
+
+Q questions
+
+Li to Ri inclusive
+ok to re-arrange
+
+How many can she answer YES to
+
+
+T: test cases
+N: number of blocks 	Q: number of questions
+STRING: 
+[Q lines] L R
+
+
+
+
+
+
+
