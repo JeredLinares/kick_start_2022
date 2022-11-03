@@ -16,5 +16,5 @@ for case in range(int(input())):
         candy_total += element
 #    print(candy_total)
 
-    print(f"Case {case+1}: {candy_total%line1[1]}")
+    print(f"Case #{case+1}: {candy_total%line1[1]}")
 
